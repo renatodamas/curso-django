@@ -8,7 +8,7 @@ flake8 = "*"
 
 [packages]
 django = "*"
-gunicorn = "*"
+gunicorn = "*" # servidor de aplicações para rodar no heroku
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
