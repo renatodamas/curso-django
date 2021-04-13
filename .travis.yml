@@ -3,10 +3,9 @@ language: python
 python:
 - 3.9
 services:
-  - postgresql
-
+  postgresql
 addons:
-  postgresql: '13.2'
+  postgresql: '13'
 
 env:
   global:
