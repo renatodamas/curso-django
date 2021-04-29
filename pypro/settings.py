@@ -31,6 +31,8 @@ DEBUG = config('DEBUG', cast=bool)  # lib 'python-decouple'
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
+# Customized User Class
+AUTH_USER_MODEL = 'base.User'
 
 # Application definition
 
@@ -140,7 +142,6 @@ AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 # STORAGE CONFIGURATION IN S3 AWS
 # -------------------------------------------------------------------
 if AWS_ACCESS_KEY_ID:  # pragma: no cover
-    print('AWS_ACESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
@@ -158,7 +159,7 @@ if AWS_ACCESS_KEY_ID:  # pragma: no cover
     STATIC_S3_PATH = 'static'
     STATIC_ROOT = f'/{STATIC_S3_PATH}/'
     # o '//' abaixo é para seguir o protocolo de acesso http://, ftp:// e ou qualquer outro
-    STATIC_URL = f'//s3.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/{STATIC_S3_PATH}'
+    STATIC_URL = f'//s3.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/{STATIC_S3_PATH}/'
     ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
     # Upload Media Folder
