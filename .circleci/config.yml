@@ -15,8 +15,12 @@ jobs:
           name: Initial checkings
       - run:
           command: |
-            pipenv run pytest --version
+            pipenv run pytest --cov=pypro
           name: Test it
+      - run:
+          command: |
+            pipenv run codecov
+          name: Test coverage
 workflows:
   main:
     jobs:
