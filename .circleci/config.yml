@@ -11,6 +11,10 @@ jobs:
           pkg-manager: pipenv
       - run:
           command: |
+            cp contrib/env-sample .env
+          name: Environment Variables
+      - run:
+          command: |
             pipenv run flake8 .
           name: Initial checkings
       - run:
