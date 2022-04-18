@@ -11,10 +11,6 @@ jobs:
           pkg-manager: pipenv
       - run:
           command: |
-            cp contrib/env-sample .env
-          name: Environment Variables
-      - run:
-          command: |
             pipenv run flake8 .
           name: Initial checkings
       - run:
@@ -25,7 +21,8 @@ jobs:
           command: |
             pipenv run codecov
           name: Test coverage
-workflows:pipe
+
+workflows:
   main:
     jobs:
       - build
