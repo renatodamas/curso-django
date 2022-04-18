@@ -11,7 +11,7 @@ jobs:
           pkg-manager: pipenv
       - run:
           command: |
-            pipenv run flake8
+            pipenv run flake8 .
           name: Initial checkings
       - run:
           command: |
@@ -21,7 +21,7 @@ jobs:
           command: |
             pipenv run codecov
           name: Test coverage
-workflows:
+workflows:pipe
   main:
     jobs:
       - build
