@@ -39,25 +39,25 @@ jobs:
 
       - run:
           name: Install Python deps in a venv
-          pipenv sync -d
+          command: pipenv sync -d
 
       - run:
           name: Environment Variables CI
-          cp contrib/env-sample .env
+          command: cp contrib/env-sample .env
 
 
       - run:
           name: Initial checkings
-          pipenv run flake8 .
+          command: pipenv run flake8 .
 
 
       - run:
           name: Test it
-          pipenv run pytest --cov=pypro
+          command: pipenv run pytest --cov=pypro
 
       - run:
           name: Test coverage
-          pipenv run codecov
+          command: pipenv run codecov
 
 
 workflows:
