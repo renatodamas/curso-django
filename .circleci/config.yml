@@ -14,11 +14,13 @@ jobs:
 
     # Service container image
       - image: cimg/postgres:14.0
-        environment:
-          POSTGRES_USER: postgres
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+
+        environment:
+          POSTGRES_USER: testuser
+          POSTGRES_DB: circle-test_test
     steps:
       - checkout
       - run: sudo apt-get update
