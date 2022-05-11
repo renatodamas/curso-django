@@ -1,26 +1,24 @@
-version: '2.1'
-orbs:
-  python: circleci/python@1.0.0
+version: 2.1
 jobs:
   build:
     # Primary container image where all commands run
     docker:
       - image: cimg/python:3.10
         environment:
-          DATABASE_URL: postgresql://postgres@localhost/circle_test
+          DATABASE_URL: postgres://postgres@localhost/circle_test
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
 
     # Service container image
       - image: cimg/postgres:14.0
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: circle_test
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
 
-        environment:
-          POSTGRES_USER: testuser
-          POSTGRES_DB: circle-test_test
     steps:
       - checkout
       - run: sudo apt-get update
@@ -36,26 +34,31 @@ jobs:
           -d $DATABASE_URL \
           -c "INSERT INTO test VALUES ('John'), ('Joanna'), ('Jennifer');"
 
-      - run: sudo apt-get update
-      - python/install-packages:
-          args: sync -d
-          pkg-manager: pipenv
       - run:
-          command: |
-            cp contrib/env-sample .env
+          sudo apt-get update
+
+      - run:
+          name: Install Python deps in a venv
+          pipenv sync -d
+
+      - run:
           name: Environment Variables CI
+          cp contrib/env-sample .env
+
+
       - run:
-          command: |
-            pipenv run flake8 .
           name: Initial checkings
+          pipenv run flake8 .
+
+
       - run:
-          command: |
-            pipenv run pytest --cov=pypro
           name: Test it
+          pipenv run pytest --cov=pypro
+
       - run:
-          command: |
-            pipenv run codecov
           name: Test coverage
+          pipenv run codecov
+
 
 workflows:
   main:
