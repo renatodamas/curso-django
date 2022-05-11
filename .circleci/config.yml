@@ -3,9 +3,38 @@ orbs:
   python: circleci/python@1.0.0
 jobs:
   build:
-    executor: python/default
+    # Primary container image where all commands run
+    docker:
+      - image: cimg/python:3.10
+        environment:
+          DATABASE_URL: postgresql://postgres@localhost/circle_test
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+
+    # Service container image
+      - image: cimg/postgres:14.0
+        environment:
+          POSTGRES_USER: postgres
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
+      - run: sudo apt-get update
+      - run: sudo apt-get install postgresql-client
+      - run: whoami
+      - run: |
+          psql \
+          -d $DATABASE_URL \
+          -c "CREATE TABLE test (name char(25));"
+
+      - run: |
+          psql \
+          -d $DATABASE_URL \
+          -c "INSERT INTO test VALUES ('John'), ('Joanna'), ('Jennifer');"
+
+      - run: sudo apt-get update
       - python/install-packages:
           args: sync -d
           pkg-manager: pipenv
