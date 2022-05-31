@@ -22,6 +22,7 @@ jobs:
     steps:
       - checkout
       - run: sudo apt-get update
+      - run: sudo apt install python3-dev libpq-dev
       - run: sudo apt-get install postgresql-client
       - run: whoami
       - run: |
