@@ -4,11 +4,11 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-flake8 = "*"
 pytest = "*"
 pytest-django = "*"
 pytest-cov = "*"
 codecov = "*"
+flake8 = "*"
 
 [packages]
 django = "*"
