@@ -32,6 +32,7 @@ DEBUG = config('DEBUG', cast=bool)  # python-decouple
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())  # ['rd-curso-django.herokuapp.com']
 
+AUTH_USER_MODEL = 'base.User'
 
 # Application definition
 
