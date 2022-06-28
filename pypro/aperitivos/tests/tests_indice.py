@@ -22,5 +22,11 @@ def test_video_title(resp, titulo):
     assert_contains(resp, titulo)
 
 
-# def test_video_content(resp):
-#     assert_contains(resp, '<iframe src="https://www.youtube.com/embed/2aYplgJrPDU"')
+@pytest.mark.parametrize(
+    'slug',
+    ['motivacao', 'instalacao-windows']
+)
+def test_video_link(resp, slug):
+    video_link = reverse('aperitivos:video', args=(slug,))
+    assert_contains(resp, f'href="{video_link}"')
+
