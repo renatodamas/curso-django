@@ -63,32 +63,6 @@
     </div>
 </nav>
 {% block body %} {% endblock body %}
-<footer class="main-footer mt-3 pt-4 text-light">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h4>Entre em contato</h4>
-                <address>
-                    <a href="tel:+5512997411854" class="text-light">+55 (12) 997-411-854</a>
-                    <br/>
-                    <a href="mailto:ramalho@pyton.pro.br" class="text-light">ramalho@pyton.pro.br</a>
-
-                </address>
-            </div>
-        </div>
-    </div>
-    <div class="rights pt-1 pb-1">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    {% now 'Y' %} Python Pro. Todos direitos reservados.
-
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<p class="alert-danger">Página desenvolvida apenas para fins de aprendizado.
-    <br/>Não existe oferecimento real de qualquer curso.</p>
+{% include 'base/footer.html' with contato_email='ramalho@python.pro.br' only %}
 </body>
 </html>
