@@ -4,4 +4,8 @@ from django.shortcuts import render
 
 
 def video(request, slug):
-    return render(request, 'aperitivos/video.html')
+    video = {
+        'titulo': 'Video Aperitivo: Motivação',
+        'id': '2aYplgJrPDU'
+    }
+    return render(request, 'aperitivos/video.html', context={'video': video})
